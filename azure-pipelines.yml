@@ -1,39 +1,19 @@
-loadtests / local.js
-import {
-check,
-group,
-sleep
-} from "k6";
-import http from "k6/http";
-export let options = {
-stages: [{
-duration: "10s",
-target: 15
-},
-{
-duration: "20s",
-target: 15
-},
-{
-duration: "10s",
-target: 0
-}
-],
-thresholds: {
-"http_req_duration": ["p(95)<250"]
-},
-ext: {
-loadimpact: {
-name: "test.loadimpact.com"
-}
-}
-};
-export default function () {
-group("Front page", function () {
-let res = http.get("http://test.loadimpact.com/");
-check(res, {
-"is status 200": (r) => r.status === 200
-});
-sleep(5);
-});
-}
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
